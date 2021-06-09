@@ -48,11 +48,14 @@ class User_functions():
             reader = csv.reader(f)
             for row in reader:
                 print(row[0],row[1])
-
+    
+    # User posting 
     def new_post(self):
+        user_post_list = []
         users_post = input('Your post:\n')
+        user_post_list.append(users_post)
         with open (path_posts, 'a') as csvfile:
             csv_object = writer(csvfile)
-            csv_object.writerow(users_post)
+            csv_object.writerow(user_post_list)
         
         
