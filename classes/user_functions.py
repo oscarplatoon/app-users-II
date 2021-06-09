@@ -5,7 +5,8 @@ import csv
 import os.path
 
 my_path = os.path.abspath(os.path.dirname(__file__))
-path = os.path.join(my_path, "../data/users.csv")
+path_users = os.path.join(my_path, "../data/users.csv")
+path_posts = os.path.join(my_path, "../data/posts.csv")
 
 class User_functions():
 
@@ -17,7 +18,7 @@ class User_functions():
     def runner(self):
 
         while True:
-            mode = input("\nWhat would you like to do?\nOptions:\n1. Enter new user\n2. Show all Users\n5. Quit\n")
+            mode = input("\nWhat would you like to do?\nOptions:\n1. Enter new user\n2. Show all Users\n3. Create post\n5. Quit\n")
 
             if mode == '1':
                 self.add_user()
@@ -36,21 +37,22 @@ class User_functions():
         email_address = input('Enter email address: \n')
         password = input('Enter password: \n')
         self.users.append(User(name, email_address, password))
-        with open (path, 'a') as csvfile:
+        with open (path_users, 'a') as csvfile:
             csv_object = writer(csvfile)
             for user in self.users:
                 csv_object.writerow([user.name, user.email_address, user.password])
 
     # Displaying all users
     def show_users(self):
-        with open (path) as f:
+        with open (path_users) as f:
             reader = csv.reader(f)
             for row in reader:
                 print(row[0],row[1])
 
     def new_post(self):
         users_post = input('Your post:\n')
-        user_name = self.name
+        with open (path_posts, 'a') as csvfile:
+            csv_object = writer(csvfile)
+            csv_object.writerow(users_post)
         
-        pass
         
