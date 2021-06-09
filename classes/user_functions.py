@@ -1,0 +1,56 @@
+from classes.User import User
+from csv import writer
+import time
+import csv
+import os.path
+
+my_path = os.path.abspath(os.path.dirname(__file__))
+path = os.path.join(my_path, "../data/users.csv")
+
+class User_functions():
+
+    def __init__(self):
+        self.users = []
+        self.runner()
+
+    # User interface
+    def runner(self):
+
+        while True:
+            mode = input("\nWhat would you like to do?\nOptions:\n1. Enter new user\n2. Show all Users\n5. Quit\n")
+
+            if mode == '1':
+                self.add_user()
+            elif mode == '2':
+                self.show_users()
+            elif mode == '3':
+                self.new_post()
+            elif mode == '5':
+                print("Exiting program")
+                time.sleep(1)
+                break  
+
+    # Adding a user to the .csv
+    def add_user(self):
+        name = input('Enter name:\n')
+        email_address = input('Enter email address: \n')
+        password = input('Enter password: \n')
+        self.users.append(User(name, email_address, password))
+        with open (path, 'a') as csvfile:
+            csv_object = writer(csvfile)
+            for user in self.users:
+                csv_object.writerow([user.name, user.email_address, user.password])
+
+    # Displaying all users
+    def show_users(self):
+        with open (path) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                print(row[0],row[1])
+
+    def new_post(self):
+        users_post = input('Your post:\n')
+        user_name = self.name
+        
+        pass
+        
